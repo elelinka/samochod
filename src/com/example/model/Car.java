@@ -1,11 +1,18 @@
 package com.example.model;
 
+import java.util.Locale;
+
 public class Car extends Vehicle {
     private boolean isAirConditionOn;
 
     public Car(String name, double tankVolume, boolean isAirConditionOn) {
         super(name, tankVolume);
         this.isAirConditionOn = isAirConditionOn;
+    }
+
+    @Override
+    public double getRangeOfVehicle() {
+        return (getTankVolume() * 100) / getAverageCombustion();
     }
 
     @Override

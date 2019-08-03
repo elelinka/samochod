@@ -1,5 +1,7 @@
 package com.example.model;
 
+import java.util.Locale;
+
 public class Vehicle {
     private String name;
     private double tankVolume;
@@ -10,6 +12,10 @@ public class Vehicle {
         this.name = name;
         this.tankVolume = tankVolume;
         this.averageCombustion = combustion;
+    }
+
+    public double getRangeOfVehicle() {
+        return (tankVolume * 100) / averageCombustion;
     }
 
     public String getName() {
@@ -29,7 +35,7 @@ public class Vehicle {
     }
 
     public double getAverageCombustion() {
-        return combustion;
+        return averageCombustion;
     }
 
     public void setAverageCombustion(double averageCombustion) {
@@ -38,6 +44,8 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "name: " + name + ", tank volume: " + tankVolume + ", average combustion: " + averageCombustion;
+        return "name: " + name + ", tank volume: " + tankVolume
+                + "L, average combustion: " + String.format(Locale.US, "%5.2f", getAverageCombustion())
+                + "L/100km, range of vehicle: " + String.format(Locale.US, "%5.2f", getRangeOfVehicle()) + "km";
     }
 }

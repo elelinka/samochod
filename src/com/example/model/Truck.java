@@ -9,8 +9,17 @@ public class Truck extends Car {
     }
 
     @Override
+    public double getRangeOfVehicle() {
+        return (getTankVolume() * 100) / getAverageCombustion();
+    }
+
+    @Override
     public double getAverageCombustion() {
-        return super.getAverageCombustion() + 0.8;
+        if (loadWeight >= 100) {
+            return (super.getAverageCombustion() * 2 + 1.3) * loadWeight / 100;
+        } else {
+            return super.getAverageCombustion() * 2;
+        }
     }
 
     public double getLoadWeight() {
@@ -23,6 +32,6 @@ public class Truck extends Car {
 
     @Override
     public String toString() {
-        return super.toString() + ", load weight: " + loadWeight;
+        return super.toString() + ", load weight: " + loadWeight + "kg";
     }
 }
