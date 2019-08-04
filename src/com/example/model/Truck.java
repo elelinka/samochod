@@ -2,23 +2,29 @@ package com.example.model;
 
 public class Truck extends Car {
     private double loadWeight;
+    private static final double COMBUSTION_WITH_AIR_CON_TRUCK = 0.8;
+    private static final double COMBUSTION_WITH_LOAD = 0.5;
 
-    public Truck(String name, double tankVolume, boolean isAirConditionOn, double loadWeight) {
-        super(name, tankVolume, isAirConditionOn);
+    public Truck(String name, double tankVolume, double averageCombustion, boolean isAirConditionOn, double loadWeight) {
+        super(name, tankVolume, averageCombustion, isAirConditionOn);
         this.loadWeight = loadWeight;
     }
 
     @Override
     public double getRangeOfVehicle() {
-        return (getTankVolume() * 100) / getAverageCombustion();
+        return super.getRangeOfVehicle();
     }
 
     @Override
-    public double getAverageCombustion() {
-        if (loadWeight >= 100) {
-            return (super.getAverageCombustion() * 2 + 1.3) * loadWeight / 100;
+    public double getCombustion() {
+        if (loadWeight >= 100 && isAirConditionOn()) {
+            return super.getCombustion() + (COMBUSTION_WITH_LOAD * (loadWeight / 100)) + COMBUSTION_WITH_AIR_CON_TRUCK;
+        } else if (isAirConditionOn() && loadWeight < 100) {
+            return super.getCombustion() + COMBUSTION_WITH_AIR_CON_TRUCK;
+        } else if (!isAirConditionOn() && loadWeight >= 100) {
+            return super.getCombustion() + (COMBUSTION_WITH_LOAD * (loadWeight / 100));
         } else {
-            return super.getAverageCombustion() * 2;
+            return super.getCombustion();
         }
     }
 
@@ -28,6 +34,14 @@ public class Truck extends Car {
 
     public void setLoadWeight(double loadWeight) {
         this.loadWeight = loadWeight;
+    }
+
+    public static double getCombustionWithAirCon() {
+        return COMBUSTION_WITH_AIR_CON_TRUCK;
+    }
+
+    public static double getCombustionWithLoad() {
+        return COMBUSTION_WITH_LOAD;
     }
 
     @Override

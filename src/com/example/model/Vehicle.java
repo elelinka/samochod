@@ -6,16 +6,11 @@ public class Vehicle {
     private String name;
     private double tankVolume;
     private double averageCombustion;
-    private static double combustion = 10;
 
-    public Vehicle(String name, double tankVolume) {
+    public Vehicle(String name, double tankVolume, double averageCombustion) {
         this.name = name;
         this.tankVolume = tankVolume;
-        this.averageCombustion = combustion;
-    }
-
-    public double getRangeOfVehicle() {
-        return (tankVolume * 100) / averageCombustion;
+        this.averageCombustion = averageCombustion;
     }
 
     public String getName() {
@@ -45,7 +40,7 @@ public class Vehicle {
     @Override
     public String toString() {
         return "name: " + name + ", tank volume: " + tankVolume
-                + "L, average combustion: " + String.format(Locale.US, "%5.2f", getAverageCombustion())
-                + "L/100km, range of vehicle: " + String.format(Locale.US, "%5.2f", getRangeOfVehicle()) + "km";
+                + "L, average combustion: " + String.format(Locale.US, "%4.2f", averageCombustion)
+                + "L/100km,";
     }
 }

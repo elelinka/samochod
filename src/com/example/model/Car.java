@@ -4,21 +4,20 @@ import java.util.Locale;
 
 public class Car extends Vehicle {
     private boolean isAirConditionOn;
+    private static final double COMBUSTION_WITH_AIR_CON = 0.8;
 
-    public Car(String name, double tankVolume, boolean isAirConditionOn) {
-        super(name, tankVolume);
+    public Car(String name, double tankVolume, double averageCombustion, boolean isAirConditionOn) {
+        super(name, tankVolume, averageCombustion);
         this.isAirConditionOn = isAirConditionOn;
     }
 
-    @Override
     public double getRangeOfVehicle() {
-        return (getTankVolume() * 100) / getAverageCombustion();
+        return (super.getTankVolume() / getCombustion()) * 100;
     }
 
-    @Override
-    public double getAverageCombustion() {
+    public double getCombustion() {
         if (isAirConditionOn) {
-            return super.getAverageCombustion() + 0.8;
+            return super.getAverageCombustion() + COMBUSTION_WITH_AIR_CON;
         } else {
             return super.getAverageCombustion();
         }
@@ -32,8 +31,12 @@ public class Car extends Vehicle {
         isAirConditionOn = airConditionOn;
     }
 
+    public static double getCombustionWithAirCon() {
+        return COMBUSTION_WITH_AIR_CON;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + ", is air condition on: " + isAirConditionOn;
+        return super.toString() + " is air condition on: " + isAirConditionOn + ",\ncombustion: " + String.format(Locale.US, "%5.2f", getCombustion()) + "L" + ", range of vehicle: " + String.format(Locale.US, "%5.2f", getRangeOfVehicle()) + "km";
     }
 }
