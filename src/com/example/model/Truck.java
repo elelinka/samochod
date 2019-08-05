@@ -13,14 +13,18 @@ public class Truck extends Car {
 
     @Override
     public double getRangeOfVehicle() {
+        return (super.getTankVolume() / getCurrentCombustion()) * 100;
+    }
+
+    private double getCurrentCombustion() {
         if (loadWeight >= 100 && isAirConditionOn()) {
-            return (super.getTankVolume() / (super.getAverageCombustion() + (COMBUSTION_WITH_LOAD * (loadWeight / 100)) + COMBUSTION_WITH_AIR_CON_TRUCK)) * 100;
-        } else if (loadWeight < 100 && isAirConditionOn()) {
-            return (super.getTankVolume() / (super.getAverageCombustion() + COMBUSTION_WITH_AIR_CON_TRUCK)) * 100;
+            return super.getAverageCombustion() + (COMBUSTION_WITH_LOAD * (loadWeight / 100)) + COMBUSTION_WITH_AIR_CON_TRUCK;
         } else if (loadWeight >= 100 && !isAirConditionOn()) {
-            return (super.getTankVolume() / (super.getAverageCombustion() + (COMBUSTION_WITH_LOAD * (loadWeight / 100)))) * 100;
+            return super.getAverageCombustion() + (COMBUSTION_WITH_LOAD * (loadWeight / 100));
+        } else if (loadWeight < 100 && isAirConditionOn()) {
+            return super.getAverageCombustion() + COMBUSTION_WITH_AIR_CON_TRUCK;
         } else {
-            return (super.getTankVolume() / super.getAverageCombustion()) * 100;
+            return super.getAverageCombustion();
         }
     }
 
