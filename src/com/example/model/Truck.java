@@ -17,27 +17,14 @@ public class Truck extends Car {
     }
 
     private double getCurrentCombustion() {
-        if (loadWeight >= 100 && isAirConditionOn()) {
-            return getCurrentCombustionWithLoad() + getCurrentCombustionWithAir();
-        } else {
-            return getCurrentCombustionWithAir();
+        double averageCombustion = getAverageCombustion();
+        if (isAirConditionOn()) {
+            averageCombustion += COMBUSTION_WITH_AIR_CON_TRUCK;
         }
-    }
-
-    private double getCurrentCombustionWithAir() {
-        if (isAirConditionOn() && loadWeight < 100) {
-            return getAverageCombustion() + COMBUSTION_WITH_AIR_CON_TRUCK;
-        } else {
-            return getCurrentCombustionWithLoad();
+        if (loadWeight >= 100) {
+            averageCombustion += (COMBUSTION_WITH_LOAD * (loadWeight / 100));
         }
-    }
-
-    private double getCurrentCombustionWithLoad() {
-        if (loadWeight >= 100 && !isAirConditionOn()) {
-            return getAverageCombustion() + (COMBUSTION_WITH_LOAD * (loadWeight / 100));
-        } else {
-            return getAverageCombustion();
-        }
+        return averageCombustion;
     }
 
     public double getLoadWeight() {
