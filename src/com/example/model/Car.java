@@ -3,8 +3,9 @@ package com.example.model;
 import java.util.Locale;
 
 public class Car extends Vehicle {
+    public static final double COMBUSTION_WITH_AIR_CON = 0.8;
+
     private boolean isAirConditionOn;
-    private static final double COMBUSTION_WITH_AIR_CON = 0.8;
 
     public Car(String name, double tankVolume, double averageCombustion, boolean isAirConditionOn) {
         super(name, tankVolume, averageCombustion);
@@ -12,14 +13,10 @@ public class Car extends Vehicle {
     }
 
     public double getRangeOfVehicle() {
-        return (super.getTankVolume() / getCombustion()) * 100;
-    }
-
-    public double getCombustion() {
         if (isAirConditionOn) {
-            return super.getAverageCombustion() + COMBUSTION_WITH_AIR_CON;
+            return (super.getTankVolume() / (super.getAverageCombustion() + COMBUSTION_WITH_AIR_CON)) * 100;
         } else {
-            return super.getAverageCombustion();
+            return (super.getTankVolume() / super.getAverageCombustion()) * 100;
         }
     }
 
@@ -31,12 +28,9 @@ public class Car extends Vehicle {
         isAirConditionOn = airConditionOn;
     }
 
-    public static double getCombustionWithAirCon() {
-        return COMBUSTION_WITH_AIR_CON;
-    }
-
     @Override
     public String toString() {
-        return super.toString() + " is air condition on: " + isAirConditionOn + ",\ncombustion: " + String.format(Locale.US, "%5.2f", getCombustion()) + "L" + ", range of vehicle: " + String.format(Locale.US, "%5.2f", getRangeOfVehicle()) + "km";
+        return super.toString() + " is air condition on: " + isAirConditionOn
+                + ", range of vehicle: " + String.format(Locale.US, "%5.2f", getRangeOfVehicle()) + "km";
     }
 }
