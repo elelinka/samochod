@@ -13,7 +13,7 @@ public class Truck extends Car {
 
     @Override
     public double getRangeOfVehicle() {
-        return (getTankVolume() / getCurrentCombustion()) * 100;
+        return super.getRangeOfVehicle();
     }
 
     private double getCurrentCombustion() {

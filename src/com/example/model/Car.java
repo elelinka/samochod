@@ -13,11 +13,15 @@ public class Car extends Vehicle {
     }
 
     public double getRangeOfVehicle() {
+        return (getTankVolume() / getCurrentCombustion()) * 100;
+    }
+
+    private double getCurrentCombustion() {
+        double averageCombustion = getAverageCombustion();
         if (isAirConditionOn) {
-            return (getTankVolume() / (getAverageCombustion() + COMBUSTION_WITH_AIR_CON)) * 100;
-        } else {
-            return (getTankVolume() / getAverageCombustion()) * 100;
+            averageCombustion += COMBUSTION_WITH_AIR_CON;
         }
+        return averageCombustion;
     }
 
     public boolean isAirConditionOn() {
