@@ -14,9 +14,9 @@ public class Car extends Vehicle {
 
     public double getRangeOfVehicle() {
         if (isAirConditionOn) {
-            return (super.getTankVolume() / (super.getAverageCombustion() + COMBUSTION_WITH_AIR_CON)) * 100;
+            return (getTankVolume() / (getAverageCombustion() + COMBUSTION_WITH_AIR_CON)) * 100;
         } else {
-            return (super.getTankVolume() / super.getAverageCombustion()) * 100;
+            return (getTankVolume() / getAverageCombustion()) * 100;
         }
     }
 
